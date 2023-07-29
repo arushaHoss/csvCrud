@@ -1,0 +1,161 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+<button class="btn btn-primary waves-effect waves-light" onclick="location.href='/route/form'">Add Record</button>
+<div class="card-box" style="margin-top: 20px;">
+    <div class="table-responsive">
+        
+        <table class="table table-bordered table-striped m-0">
+            <thead>
+                <style>
+                   
+    /* Common Styles */
+    body {
+        font-family: Arial, sans-serif;
+    }
+
+    /* Card Box Styles */
+    .card-box {
+        background-color: #f8f8f8;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+    /* Table Styles */
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .table th,
+    .table td {
+        padding: 10px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .table th {
+        background-color: #f2f2f2;
+    }
+
+    .table-responsive {
+        overflow-x: auto;
+    }
+
+    .pagination {
+        margin-top: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .pagination a {
+        color: #007bff;
+        text-decoration: none;
+        padding: 5px 10px;
+        border: 1px solid #007bff;
+        border-radius: 5px;
+        margin: 0 3px;
+    }
+
+    .pagination a:hover {
+        background-color: #007bff;
+        color: #fff;
+    }
+
+    .pagination .active {
+        background-color: #007bff;
+        color: #fff;
+        pointer-events: none;
+    }
+
+    .pagination .disabled {
+        color: #bbb;
+        pointer-events: none;
+    }
+                </style>
+                <tr>
+                    <th>#</th>                    
+                    <th>Name</th>
+                    <th>Class</th>
+                    <th>Section</th>
+                    <th>Roll No.</th>
+                    <th>Marks</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% let serialNumber = 1; %>
+                <% if (results.length > 0) { %> <!-- Check if there are any records available -->
+                    <% results.forEach((element, index, array) => { %>
+                    <tr>
+                        <td><%= serialNumber %></td>
+                        <td><%= element.Name %></td>
+                        <td><%= element.Class %></td>
+                        <td><%= element.Section %></td>
+                        <td><%= element.RollNo %></td>
+                        <td><%= element.Marks %></td>
+                        <td>
+                            <a href="/route/findOne/<%= element.Id %>"><i class="fa fa-eye"></i></a>
+                            <a href="/route/edit/<%= element.Id %>"><i class="fa fa-edit"></i></a>
+                            <a href="javascript:void(0)" onclick="confirmAndDelete('<%= element.Id %>')">
+                                <i class="fas fa-trash-alt"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    <% serialNumber++; %>
+                    <% }) %>
+                <% } else { %> <!-- Show the table header only when there are no records -->
+                    <tr>
+                        <td colspan="7" style="text-align: center;">No records found</td>
+                    </tr>
+                <% } %>
+            </tbody>
+           
+        </table>
+    </div>
+  </div>
+
+  <script>
+    function confirmAndDelete(recordId) {
+        if (confirm('Are you sure you want to delete this record?')) {
+            fetch(`/route/delete/${recordId}`, {
+                method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+        .then(response => {
+          if (response.ok) {
+            console.log(`Record with Id ${recordId} deleted successfully.`);
+            window.location.reload();
+          } else {
+            console.error(`Failed to delete record with Id ${recordId}.`);
+          }
+        })
+        .catch(error => {
+          console.error('Error during deletion:', error);
+        });
+    }
+    }
+</script>
+
+
+
+
+  
+  

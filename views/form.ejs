@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Add the CSS styling here -->
+    <style>
+        /* Common Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        form {
+            background-color: #f8f8f8;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            width: 300px;
+            margin: 0 auto;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select {
+            width: 90%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        .btn:active {
+            background-color: #003d80;
+        }
+
+        .btn:focus {
+            outline: none;
+        }
+
+        /* Validation styles */
+        .error {
+            color: red;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Create Student Record</h2>
+    <!-- Create Student Form -->
+    <form action="/route/create" method="POST" id="create_form" class="form-horizontal"  role="form">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required pattern="[A-Za-z ]+">
+
+        <label for="class">Class:</label>
+        <input type="number" id="class" name="class" required min="1" max="12">
+
+        <label for="section">Section:</label>
+        <input type="text" id="section" name="section" required pattern="[A-Z]{1}"  oninvalid="this.setCustomValidity('Value should be a capital letter')" oninput="this.setCustomValidity('')">
+
+        <label for="rollNo">Roll No.:</label>
+        <input type="number" id="rollNo" name="rollNo" required required min="1">
+
+        <label for="marks">Marks:</label>
+        <input type="number" id="marks" name="marks" required required min="0" max="100">
+
+        <button class="btn btn-primary waves-effect waves-light" type="submit">Add</button>
+    </form>
+</body>
+
+</html>

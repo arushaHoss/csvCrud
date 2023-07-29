@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Add the CSS styling here -->
+    <style>
+        /* Common Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        form {
+            background-color: #f8f8f8;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            width: 300px;
+            margin: 0 auto;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select {
+            width: 90%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        .btn:active {
+            background-color: #003d80;
+        }
+
+        .btn:focus {
+            outline: none;
+        }
+
+        /* Validation styles */
+        .error {
+            color: red;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>View Student Record</h2>
+    <!-- Create Student Form -->
+    <form id="view_form" class="form-horizontal"  role="form">
+        <label for="name">Name:</label>
+        <input type="text" id="name" readonly value="<%= data.Name%>" name="name" required pattern="[A-Za-z ]+">
+        <span class="error" id="name-error"></span>
+
+        <label for="class">Class:</label>
+        <input type="number" id="class" readonly value = "<%= data.Class%>" name="class" required min="1" max="12">
+        <span class="error" id="class-error"></span>
+
+        <label for="section">Section:</label>
+        <input type="text" id="section" readonly value="<%= data.Section%>" name="section" required pattern="[A-Za-z]{1}">
+        <span class="error" id="section-error"></span>
+
+        <label for="rollNo">Roll No.:</label>
+        <input type="number" id="rollNo"  readonly value="<%= data.RollNo%>" name="rollNo" required>
+        <span class="error" id="rollNoerror"></span>
+
+        <label for="marks">Marks:</label>
+        <input type="number" id="marks" readonly value="<%= data.Marks%>" name="marks" required>
+        <span class="error" id="marks-error"></span>
+
+    </form>
+</body>
+
+</html>
