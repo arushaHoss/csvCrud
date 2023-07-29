@@ -1,5 +1,5 @@
 # csv crud#
-This project demonstrates crud operations in a csv file.
+This project demonstrates srud operations in a csv file.
 
 1. To run this project clone it and open up the terminal. and type a command,
 ``` npm install ``` 
