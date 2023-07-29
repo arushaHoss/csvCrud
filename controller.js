@@ -7,15 +7,35 @@ let id = 0;
 
 exports.create = async (req, res) => {
   id++;
-  let studentArr = [];
   const { name, class: className, section, rollNo, marks } = req.body;
   const newStudent = { id, name, class: className, section, rollNo, marks };
 
-  // Add the new student to the students array
+  const filePath = 'students.csv';
+  let studentArr = [];
+  try {
+    const fileData = fs.readFileSync(filePath, 'utf8');
+    if (fileData.trim() !== '') {
+      // If the file is not empty, parse the data and add it to studentArr
+      const rows = fileData.trim().split('\n');
+      const header = rows.shift().split(',');
+      studentArr = rows.map((row) => {
+        const rowData = row.split(',');
+        return {
+          id: rowData[0],
+          name: rowData[1],
+          class: rowData[2],
+          section: rowData[3],
+          rollNo: rowData[4],
+          marks: rowData[5],
+        };
+      });
+    }
+  } catch (error) {
+    console.error('Error reading existing student records from CSV file:', error);
+  }
+
   studentArr.push(newStudent);
 
-  // Save the updated array to the CSV file
-  const filePath = 'students.csv'; // Change this to the desired file path
   const csvWriter = createCsvWriter({
     path: filePath,
     header: [
@@ -26,7 +46,7 @@ exports.create = async (req, res) => {
       { id: 'rollNo', title: 'RollNo' },
       { id: 'marks', title: 'Marks' },
     ],
-    append: fs.existsSync(filePath), // Append only if the file exists (contains data)
+    append: false,
   });
 
   try {
@@ -38,7 +58,6 @@ exports.create = async (req, res) => {
 
   res.redirect('/');
 };
-
 exports.form = async (req, res)=>{
     return res.render('form');
 };
